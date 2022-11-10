@@ -14,7 +14,7 @@ function MyStack() {
     <Stack.Navigator
     screenOptions={{
         headerStyle: {
-         // backgroundColor: '#f4511e',
+          backgroundColor: '#999',
          elevation: 0,
          shadowOpacity: 0,
          borderBottomWidth: 0
@@ -23,7 +23,8 @@ function MyStack() {
         headerTitleStyle: {
           textAlign:"center"
         },
-        headerTitleAlign: 'center'
+        headerTitleAlign: 'center',
+        headerShadowVisible: false
       }}
     >
     <Stack.Screen name="Home" component={Home} options={{
@@ -41,6 +42,7 @@ function MyStack() {
           style={tw`rounded-3xl shadow-xl bg-white items-center`}
            />
      ),
+        headerTitle:""
     }}
     
     />
