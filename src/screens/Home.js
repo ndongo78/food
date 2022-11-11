@@ -41,7 +41,9 @@ return (
         data={menuItems}
         keyExtractor={item => item.img.toString()}
         renderItem={({item})=>(
-        <Pressable onPress={()=>navigation.navigate("Detail")} style={tw`flex-row  flex-wrap ml-3 mr-3`}>
+        <Pressable
+            onPress={()=>navigation.navigate("Detail",{item: item})}
+            style={tw`flex-row  flex-wrap ml-3 mr-3`}>
          <CardItem item={item} />
           </Pressable>
         )}
