@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {AntDesign ,MaterialCommunityIcons} from "react-native-vector-icons"
 import {View ,Image ,Text} from "react-native"
 import Home from "../screens/Home"
+import Detail from "../screens/Detail"
 import tw from 'twrnc';
 import {Avatar} from 'react-native-paper';
 
@@ -30,7 +31,7 @@ function MyStack() {
     <Stack.Screen name="Home" component={Home} options={{
     headerLeft:()=>(
      <View>
-     <Text style={tw`font-bold italic text-2xl transition ease-in-out`}>Bonjour John  </Text>
+     <Text style={tw`font-bold italic text-2xl `}>Bonjour John  </Text>
      </View>
      ),
     headerRight:()=>(
@@ -44,7 +45,13 @@ function MyStack() {
      ),
         headerTitle:""
     }}
-    
+    />
+    <Stack.Screen 
+    name="Detail" 
+    component={Detail} 
+    options={{
+      headerShown:false
+    }}
     />
     </Stack.Navigator>
   );
