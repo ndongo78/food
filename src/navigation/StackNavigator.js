@@ -16,7 +16,7 @@ function MyStack() {
     <Stack.Navigator
     screenOptions={{
         headerStyle: {
-          backgroundColor: '#999',
+          backgroundColor: '#9999',
          elevation: 0,
          shadowOpacity: 0,
          borderBottomWidth: 0
@@ -40,8 +40,8 @@ function MyStack() {
          source={{
          uri: `https://picsum.photos/200/300`,
           }}
-          size={40}
-          style={tw`rounded-3xl shadow-xl bg-white items-center`}
+          size={65}
+          style={tw`rounded-full shadow-xl bg-white items-center`}
            />
      ),
         headerTitle:""

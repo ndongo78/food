@@ -14,16 +14,24 @@ import {Ionicons ,AntDesign,MaterialCommunityIcons} from "react-native-vector-ic
 import tw from 'twrnc';
 import React from "react";
 import { Rating, AirbnbRating } from 'react-native-ratings';
+import {useNavigation, useRoute} from "@react-navigation/native";
 
 
 const {width,height}=Dimensions.get('window')
 
-const Detail=({item})=>{
-  return(
+const Detail=()=>{
+    const navigation=useNavigation()
+const router=useRoute()
+    const {item}=router.params
+
+    return(
 
     <SafeAreaView style={styles.container}>
      <View style={tw`justify-between flex-row`}>
-       <Pressable style={tw`bg-white rounded-full m-2 p-2 justify-center items-center`}>
+       <Pressable
+           style={tw`bg-white rounded-full m-2 p-2 justify-center items-center`}
+           onPress={()=>navigation.navigate("Home")}
+       >
         <Ionicons name="ios-chevron-back-sharp" size={35} />
        </Pressable>
        <Pressable style={tw`bg-white rounded-full m-2 p-2 justify-center items-center`}>
@@ -34,14 +42,14 @@ const Detail=({item})=>{
         <ScrollView>
         <View style={tw`justify-center items-center`}>
             <Image
-                source={{uri:'https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Fburger1.png?alt=media&token=319dfbe9-462b-46ea-8f38-6ca7a20319e0'}}
+                source={{uri:item.image}}
                 style={[{width:width-50,height:height/3.2,resizeMode:'contain'},tw`m-4 `]}
             />
         </View>
         <View style={tw`mt-4`}>
             <View style={tw`flex-row justify-between`}>
-                <Text style={tw`ml-2 text-3xl font-semibold`}>Big mag</Text>
-                <Text style={tw`ml-2 text-3xl font-semibold mr-3`}>10€</Text>
+                <Text style={tw`ml-2 text-3xl font-semibold`}>{item.name}</Text>
+                <Text style={tw`ml-2 text-3xl font-semibold mr-3`}>{item.price}€</Text>
             </View>
                <View style={tw`justify-start mb-15`}>
                 <Rating
@@ -50,6 +58,8 @@ const Detail=({item})=>{
                     style={tw`absolute left-2 top-3 bg-slate-300`}
                     tintColor={'#999'}
                     readonly={true}
+                    ratingCount={5}
+                    startingValue={Number(item.note)}
                 />
                </View>
             <View style={tw`flex-row justify-between mt-2`}>
@@ -83,7 +93,7 @@ const Detail=({item})=>{
                     </Text>
                 </View>
                 <Text style={tw`text-2xl m-3 font-bold`}>Ingrédients</Text>
-                <View style={tw`flex-row justify-around items-end`}>
+                <View style={tw`flex-row justify-around items-end mb-2`}>
                 <View style={tw`flex-row justify-between`}>
                  <Image
                  source={require("../../assets/ingredients/salade.png")} 
@@ -126,6 +136,6 @@ const styles= StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    backgroundColor:"#999",
+    backgroundColor:"#9998",
   }
 });

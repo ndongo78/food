@@ -2,15 +2,18 @@
 export const menuItems=[
     {
         id:0,
-        img:require('../images/humberger.png')
+        img:require('../images/humberger.png'),
+        category:"buger01"
     },
     {
         id:1,
-        img:require('../images/viande.png')
+        img:require('../images/pizza.png'),
+        category: "pizza01"
     },
     {
         id:2,
-        img:require('../images/salad.png')
+        img:require('../images/salad.png'),
+        category: "salad"
     },
     {
         id:3,
@@ -18,6 +21,12 @@ export const menuItems=[
     },
     {
         id:4,
-        img:require('../images/canette.png')
-    }
+        img:require('../images/canette.png'),
+        category: "drink01"
+    },
+    {
+        id:5,
+        img:require('../images/viande.png')
+    },
+
 ]
