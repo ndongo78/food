@@ -3,6 +3,7 @@ import {AntDesign ,MaterialCommunityIcons} from "react-native-vector-icons"
 import {View ,Image ,Text} from "react-native"
 import Home from "../screens/Home"
 import Detail from "../screens/Detail"
+import Cart from "../screens/Cart"
 import tw from 'twrnc';
 import {Avatar} from 'react-native-paper';
 
@@ -49,6 +50,13 @@ function MyStack() {
     <Stack.Screen 
     name="Detail" 
     component={Detail} 
+    options={{
+      headerShown:false
+    }}
+    />
+    <Stack.Screen 
+    name="Cart" 
+    component={Cart} 
     options={{
       headerShown:false
     }}

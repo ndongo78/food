@@ -63,7 +63,10 @@ return (
        <Ionicons name="ios-search-outline" size={25}  />
       </TouchableOpacity>
       <View style={tw`bg-transparent -mt-4`}>
-       <TouchableOpacity style={tw`-mt-4 bg-amber-400 rounded-full`}>
+       <TouchableOpacity 
+       style={tw`-mt-4 bg-amber-400 rounded-full`}
+       onPress={()=>navigation.navigate("Cart")}
+       >
        <MaterialCommunityIcons name="shopping-outline" size={25} style={tw`p-3`} />
       </TouchableOpacity>
       </View>

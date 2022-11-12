@@ -10,7 +10,7 @@ import {
     Dimensions,
     TouchableOpacity, ScrollView
 } from "react-native"
-import {Ionicons ,AntDesign} from "react-native-vector-icons"
+import {Ionicons ,AntDesign,MaterialCommunityIcons} from "react-native-vector-icons"
 import tw from 'twrnc';
 import React from "react";
 import { Rating, AirbnbRating } from 'react-native-ratings';
@@ -35,7 +35,7 @@ const Detail=({item})=>{
         <View style={tw`justify-center items-center`}>
             <Image
                 source={{uri:'https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Fburger1.png?alt=media&token=319dfbe9-462b-46ea-8f38-6ca7a20319e0'}}
-                style={[{width:width-50,height:height/3.2,resizeMode:'contain'},tw``]}
+                style={[{width:width-50,height:height/3.2,resizeMode:'contain'},tw`m-4 `]}
             />
         </View>
         <View style={tw`mt-4`}>
@@ -52,7 +52,7 @@ const Detail=({item})=>{
                     readonly={true}
                 />
                </View>
-            <View style={tw`flex-row justify-between`}>
+            <View style={tw`flex-row justify-between mt-2`}>
                 <View style={tw`flex-row`}>
                     <View style={tw`flex-row items-end justify-center`}>
                         <Text style={tw`text-4xl`}>🔥</Text>
@@ -63,13 +63,13 @@ const Detail=({item})=>{
                         <Text style={tw`text-xs`}>15 à 20mn</Text>
                     </View>
                 </View>
-                <View style={tw`flex-row  bg-amber-500 mr-3 rounded-2xl`}>
+                <View style={tw`flex-row  bg-amber-400 mr-3 rounded-2xl`}>
                     <TouchableOpacity style={tw`items-center justify-center p-2`}>
-                        <AntDesign name={'minus'} style={tw`text-2xl text-white font-bold`}    />
+                        <AntDesign name={'minus'} style={tw`text-2xl text-black font-bold`}    />
                     </TouchableOpacity>
-                    <Text style={tw`text-2xl text-white font-bold items-center justify-center m-1`}>0</Text>
+                    <Text style={tw`text-2xl text-black font-bold items-center justify-center m-1`}>1</Text>
                     <TouchableOpacity style={tw`items-center justify-center p-2`}>
-                        <AntDesign name={'plus'} style={tw`text-2xl text-white font-bold`}    />
+                        <AntDesign name={'plus'} style={tw`text-2xl text-black font-bold`}    />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -83,6 +83,36 @@ const Detail=({item})=>{
                     </Text>
                 </View>
                 <Text style={tw`text-2xl m-3 font-bold`}>Ingrédients</Text>
+                <View style={tw`flex-row justify-around items-end`}>
+                <View style={tw`flex-row justify-between`}>
+                 <Image
+                 source={require("../../assets/ingredients/salade.png")} 
+                 style={[tw`w-15 h-15 `,
+                 {resizeMode: 'contain'}]} 
+                 />
+                  <Image
+                 source={require("../../assets/ingredients/hache.png")} 
+                 style={[tw`w-15 h-15 `,
+                 {resizeMode: 'contain'}]} 
+                 />
+                </View>
+                
+                 <TouchableOpacity style={tw`-mt-4 bg-amber-400 rounded-full w-15 h-15 items-center justify-center`}>
+                  <MaterialCommunityIcons name="shopping-outline" size={25} style={tw`p-3`} />
+                   </TouchableOpacity>
+                <View style={tw`flex-row justify-between -ml-2`}>
+                 <Image
+                 source={require("../../assets/ingredients/fromage.png")} 
+                 style={[tw`w-15 h-15`,
+                 {resizeMode: 'contain'}]} 
+                 />
+                  <Image
+                 source={require("../../assets/ingredients/cornichon.png")} 
+                 style={[tw`w-15 h-15 `,
+                 {resizeMode: 'contain'}]} 
+                 />
+                </View>
+      </View>
             </View>
         </View>
         </ScrollView>
