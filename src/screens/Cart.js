@@ -163,7 +163,7 @@ const Cart =()=>{
             </View>
             <View style={tw`flex-row justify-between`}>
                 <Text style={tw`text-xl font-bold`}>Articles</Text>
-                <Text style={tw`text-xl font-bold  mr-2`}>4</Text>
+                <Text style={tw`text-xl font-bold  mr-2`}> {Cart.length} </Text>
             </View>
             <View style={tw`flex-row justify-between`}>
                 <Text style={tw`text-xl font-bold`}>Livraison</Text>
