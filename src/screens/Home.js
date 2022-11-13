@@ -1,4 +1,14 @@
-import {View, Text, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions ,Pressable} from 'react-native'
+import {
+    View,
+    Text,
+    StyleSheet,
+    FlatList,
+    TouchableOpacity,
+    Image,
+    Dimensions,
+    Pressable,
+    ActivityIndicator, Animated
+} from 'react-native'
 import tw from 'twrnc';
 import {MaterialIcons , Ionicons ,MaterialCommunityIcons} from 'react-native-vector-icons'
 
@@ -6,41 +16,21 @@ import {menuItems} from "../../assets/constants/MenuItems";
 import {CardItem} from "../components/CardItem";
 import {useNavigation, useRoute} from '@react-navigation/native';
 import axios from 'axios'
-import {useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
+import {productsContext} from "../context/ProductProvider";
 
 
 const {width,height}=Dimensions.get('window')
 
 //console.log(height)
 const Home=()=>{
-    const [products, setProducts] = useState([]);
+    const {products,fetchData,fetchAllData} = useContext(productsContext);
     const navigation = useNavigation();
     const route=useRoute()
+    const scrollY = useRef(new Animated.Value(0)).current;
+    const {cart} = useContext(productsContext);
 
-  const fetchData = (category)=>{
-      axios.get(
-          `https://nd-del.herokuapp.com/api/products/${category}`,
-          //{headers:{ Authorization: `Bearer ${token}`}}
-      )
-          .then(response => {
-              setProducts(response.data)
-          })
-          .catch(error => {
-              console.log("errors",error.response.data)
-          })
-  }
-    const fetchAllData = ()=>{
-        axios.get(
-            `https://nd-del.herokuapp.com/api/products`,
-            //{headers:{ Authorization: `Bearer ${token}`}}
-        )
-            .then(response => {
-                setProducts(response.data)
-            })
-            .catch(error => {
-                console.log("errors",error.response.data)
-            })
-    }
+
 
   useEffect(()=>{
         fetchAllData()
@@ -77,20 +67,38 @@ return (
          />
      <Text style={tw`text-2xl m-2 p-2`}>Recommander pour vous !</Text>
      </View>
-       <FlatList 
-        data={products}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item})=>(
-        <Pressable
-        onPress={()=>navigation.navigate("Detail",{item: item})}
-        //style={tw`flex-row  flex-wrap ml-3 mr-3`}
-        >
-       <CardItem item={item} />
-        </Pressable>
-        )}
-        style={tw` h-${height/7.8}`}
-        numColumns={2}
-       />
+      {
+          products.length !== 0 ?
+              (
+                  <Animated.FlatList
+                      data={products}
+                      keyExtractor={item => item.id.toString()}
+                      renderItem={({item})=>(
+                          <Pressable
+                              onPress={()=>navigation.navigate("Detail",{item: item})}
+                              //style={tw`flex-row  flex-wrap ml-3 mr-3`}
+                          >
+                              <CardItem item={item} scrollY={scrollY} />
+                          </Pressable>
+                      )}
+                      style={tw` h-${height/7.8}`}
+                      numColumns={2}
+                      onScroll={Animated.event(
+                          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                          { useNativeDriver: true }
+                      )}
+                  />
+              )
+              :(
+                  <View style={tw`justify-center items-center mt-10`}>
+                  <ActivityIndicator
+                      size={100}
+                      animating={true}
+                      color={"#000000"}
+                      />
+                  </View>
+              )
+      }
       
     </View>
      <View style={tw`flex-row  absolute w-100%
@@ -105,10 +113,11 @@ return (
       </TouchableOpacity>
       <View style={tw`bg-transparent -mt-4`}>
        <TouchableOpacity 
-       style={tw`-mt-4 bg-amber-400 rounded-full`}
+       style={tw`-mt-5 bg-amber-500 rounded-full h-17 w-17 items-center justify-center`}
        onPress={()=>navigation.navigate("Cart")}
        >
-       <MaterialCommunityIcons name="shopping-outline" size={25} style={tw`p-3`} />
+           <Text style={tw`absolute z-100 text-white right-3 -top-2 rounded-full font-bold bg-red-800 p-1`}> {cart.length} </Text>
+       <MaterialCommunityIcons name="shopping-outline" size={35} style={tw`text-white rounded-b-55`} />
       </TouchableOpacity>
       </View>
       <TouchableOpacity>

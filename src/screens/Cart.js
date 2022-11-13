@@ -12,19 +12,31 @@ import {
 } from "react-native"
 import {Ionicons, AntDesign, MaterialCommunityIcons, MaterialIcons} from "react-native-vector-icons"
 import tw from 'twrnc';
-import React, {useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {Avatar} from 'react-native-paper';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import {useNavigation} from "@react-navigation/native";
+import {productsContext} from "../context/ProductProvider";
+import {CardCart} from "../components/CardCart";
+import LottieView from 'lottie-react-native';
 
 const {width,height}=Dimensions.get('window')
 const Cart =()=>{
+    const {cart} = useContext(productsContext);
     const navigation=useNavigation()
-    const [cart, setCart] = useState([1,2,3,4].map((item,index)=>(
+    const animation = useRef(null);
+    const [carts, setCart] = useState(cart.map((item,index)=>(
         {
-            key:index
-        }
-    )));
+          key:index
+      }
+      )));
+
+    useEffect(() => {
+       if(animation.current){
+           animation.current.play(8,25);
+       }
+    }, [animation]);
+
 
     const rowRef = useRef(null);
 
@@ -41,38 +53,7 @@ const Cart =()=>{
         console.log('This row opened', rowKey);
     };
 
-    const renderItem = data => (
-        <View
-            style={tw`bg-white flex-row rounded-2xl m-4 h-40`}
-           >
-            <Image
-            source={{uri:'https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Fburger1.png?alt=media&token=319dfbe9-462b-46ea-8f38-6ca7a20319e0'}}
-            style={[{width:100,height:100,resizeMode:'contain'},tw`m-4 `]}
-            />
-            <View style={tw`justify-around p-2`}>
-                <View>
-                    <Text style={tw`text-2xl font-bold `}>
-                        Big Mac</Text>
-                    <Text style={``}>
-                        Le lorem ipsum est, en imprimerie
-                    </Text>
-                </View>
-                <View style={tw`flex-row justify-between items-center`}>
-                    <View style={tw`flex-row  bg-amber-400 mr-3 rounded-2xl`}>
-                        <TouchableOpacity style={tw`items-center justify-center p-1`}>
-                            <AntDesign name={'minus'} style={tw`text-xl text-black font-bold`}    />
-                        </TouchableOpacity>
-                        <Text style={tw`text-xl text-black  items-center justify-center m-1`}>1</Text>
-                        <TouchableOpacity style={tw`items-center justify-center p-1`}>
-                            <AntDesign name={'plus'} style={tw`text-xl text-black font-bold`}    />
-                        </TouchableOpacity>
-                    </View>
-                    <Text
-                        style={tw`text-2xl font-bold mr-2 `}>10€</Text>
-                </View>
-            </View>
-        </View>
-    );
+    const renderItem = data => <CardCart />;
 
     const renderHiddenItem = (data, rowMap) => (
         <View
@@ -115,19 +96,62 @@ const Cart =()=>{
        </Pressable>
      </View>
        <View style={tw` h-${height/5.9}`}>
-           <SwipeListView
-               disableRightSwipe
-               data={cart}
-               renderItem={renderItem}
-               renderHiddenItem={renderHiddenItem}
-               leftOpenValue={75}
-               rightOpenValue={-50}
-               previewRowKey={'0'}
-               previewOpenValue={-40}
-               previewOpenDelay={3000}
-               onRowDidOpen={onRowDidOpen}
-               closeOnScroll={true}
-           />
+           {
+               cart.length === 0
+               ?
+               (
+               <View
+                   style={{
+                       width: 500,
+                       height: 500,
+                       // backgroundColor: '#eee',
+                       alignSelf: 'center',
+                       justifyContent: 'center',
+                       alignItems: 'center',
+                       position:"relative",
+                   }}
+               >
+                   <Text
+                       style={{
+                           position:"absolute",
+                           top: 250,
+                           fontWeight: 'bold',
+                           fontSize:25,
+                       }}
+                   >Votre panier vide !!!</Text>
+                   <LottieView
+                       loop={false}
+                       ref={animation}
+                       style={{
+                           width: 500,
+                           height: 500,
+                           // backgroundColor: '#eee',
+                           alignSelf: 'center',
+                           justifyContent: 'center',
+                           alignItems: 'center',
+                       }}
+                       // Find more Lottie files at https://lottiefiles.com/featured
+                       source={require('../../assets/constants/emptyCart.json')}
+                   />
+               </View>
+               )
+               :(
+               <SwipeListView
+                   disableRightSwipe
+                   data={carts}
+                   renderItem={renderItem}
+                   renderHiddenItem={renderHiddenItem}
+                   leftOpenValue={75}
+                   rightOpenValue={-50}
+                   previewRowKey={'0'}
+                   previewOpenValue={-40}
+                   previewOpenDelay={3000}
+                   onRowDidOpen={onRowDidOpen}
+                   closeOnScroll={true}
+               />
+                   )
+           }
+
        </View>
 
         <View style={tw`  absolute w-100%
