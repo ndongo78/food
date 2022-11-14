@@ -27,10 +27,11 @@ const Cart =()=>{
     const animation = useRef(null);
     const [carts, setCart] = useState(cart.map((item,index)=>(
         {
-          key:index
+          key:index,
+          ...item
       }
       )));
-
+     //  console.log("cart",cart)
     useEffect(() => {
        if(animation.current){
            animation.current.play(8,25);
@@ -53,7 +54,7 @@ const Cart =()=>{
         console.log('This row opened', rowKey);
     };
 
-    const renderItem = data => <CardCart />;
+    const renderItem = data => <CardCart item={data.item} />;
 
     const renderHiddenItem = (data, rowMap) => (
         <View

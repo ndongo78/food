@@ -33,7 +33,13 @@ const ProductProvider = ({children}) => {
     }
 
     const addToCart=(item)=>{
-        setCart((prevState=>[...prevState, item]))
+       const exist=cart.find(product=>product._id ===item._id)
+       if(exist){
+        return  exist.qty+=1;
+         //cart.push(exist)
+       }{
+        setCart((prevState=>[...prevState, {...item,qty:1}]))
+       }
     }
 
     return (
