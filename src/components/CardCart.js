@@ -33,7 +33,7 @@ export const  CardCart=({item})=>{
                         </TouchableOpacity>
                     </View>
                     <Text
-                        style={tw`text-2xl font-bold mr-2 `}>{item.price}€</Text>
+                        style={tw`text-2xl font-bold mr-2 `}>{item.price * item.qty}€</Text>
                 </View>
             </View>
         </View>

@@ -31,6 +31,13 @@ const Cart =()=>{
           ...item
       }
       )));
+      
+      const total=()=>{
+      return cart.reduce((accumulator,curentValue)=>accumulator + curentValue.price * curentValue.qty,0)
+      //console.log('totals',total)
+      }
+      
+  
      //  console.log("cart",cart)
     useEffect(() => {
        if(animation.current){
@@ -160,7 +167,7 @@ const Cart =()=>{
         >
             <View style={tw`flex-row justify-between`}>
                 <Text style={tw`text-xl font-bold`}>Total à payer</Text>
-                <Text style={tw`text-xl font-bold mr-2`}>50€</Text>
+                <Text style={tw`text-xl font-bold mr-2`}>{total()}€</Text>
             </View>
             <View style={tw`flex-row justify-between`}>
                 <Text style={tw`text-xl font-bold`}>Articles</Text>
