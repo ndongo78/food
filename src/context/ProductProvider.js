@@ -41,6 +41,22 @@ const ProductProvider = ({children}) => {
         setCart((prevState=>[...prevState, {...item,qty:1}]))
        }
     }
+    
+    const addQty=(item)=>{
+      const exist=cart.find(product=>product._id ===item._id)
+       if(exist){
+        return  exist.qty+=1;
+         //cart.push(exist)
+       }
+    }
+    
+    const removeQty=(item)=>{
+      const exist=cart.find(product=>product._id ===item._id)
+       if(exist){
+        return  exist.qty-=1;
+         //cart.push(exist)
+       }
+    }
 
     return (
         <productsContext.Provider value={{
@@ -48,7 +64,9 @@ const ProductProvider = ({children}) => {
             cart,
             fetchData,
             fetchAllData,
-            addToCart
+            addToCart,
+            addQty,
+            removeQty
         }}>
             {children}
         </productsContext.Provider>

@@ -22,7 +22,12 @@ import LottieView from 'lottie-react-native';
 
 const {width,height}=Dimensions.get('window')
 const Cart =()=>{
-    const {cart} = useContext(productsContext);
+    const {
+         cart,
+         addQty,
+         removeQty
+      
+    } = useContext(productsContext);
     const navigation=useNavigation()
     const animation = useRef(null);
     const [carts, setCart] = useState(cart.map((item,index)=>(

@@ -7,10 +7,12 @@ import {
     Image,
     Dimensions,
     Pressable,
-    ActivityIndicator, Animated
+    ActivityIndicator,
+    Animated,
+    TextInput
 } from 'react-native'
 import tw from 'twrnc';
-import {MaterialIcons , Ionicons ,MaterialCommunityIcons} from 'react-native-vector-icons'
+import {MaterialIcons , Ionicons ,MaterialCommunityIcons , AntDesign} from 'react-native-vector-icons'
 
 import {menuItems} from "../../assets/constants/MenuItems";
 import {CardItem} from "../components/CardItem";
@@ -49,6 +51,28 @@ return (
                    style={[tw`w-10 h-10 ml-2`,{resizeMode: 'contain'}]}
             />
         </View>
+    </View>
+    <View 
+    style={
+   tw`flex-row self-center items-center
+   bg-white rounded p-1`
+    }
+    >
+     <AntDesign
+      name='search1'
+      size={25}
+      style={tw`m-1`}
+     />
+      <TextInput
+       placeholder="rechercher un produit"
+       style={
+         tw`bg-white w-70 h-10`
+       }
+      />
+      <MaterialCommunityIcons
+      name="order-bool-descending"
+      size={25}
+      />
     </View>
      <View>
          <FlatList
