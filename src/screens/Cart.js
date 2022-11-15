@@ -25,8 +25,9 @@ const Cart =()=>{
     const {
          cart,
          addQty,
-         removeQty
-      
+         removeQty,
+        total,
+        totalArticle
     } = useContext(productsContext);
     const navigation=useNavigation()
     const animation = useRef(null);
@@ -36,11 +37,8 @@ const Cart =()=>{
           ...item
       }
       )));
-      
-      const total=()=>{
-      return cart.reduce((accumulator,curentValue)=>accumulator + curentValue.price * curentValue.qty,0)
-      //console.log('totals',total)
-      }
+
+
       
   
      //  console.log("cart",cart)
@@ -151,7 +149,7 @@ const Cart =()=>{
                :(
                <SwipeListView
                    disableRightSwipe
-                   data={carts}
+                   data={cart}
                    renderItem={renderItem}
                    renderHiddenItem={renderHiddenItem}
                    leftOpenValue={75}
@@ -176,7 +174,7 @@ const Cart =()=>{
             </View>
             <View style={tw`flex-row justify-between`}>
                 <Text style={tw`text-xl font-bold`}>Articles</Text>
-                <Text style={tw`text-xl font-bold  mr-2`}> {Cart.length} </Text>
+                <Text style={tw`text-xl font-bold  mr-2`}> {totalArticle()} </Text>
             </View>
             <View style={tw`flex-row justify-between`}>
                 <Text style={tw`text-xl font-bold`}>Livraison</Text>

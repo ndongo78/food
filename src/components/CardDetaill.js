@@ -2,11 +2,13 @@ import {Dimensions, Image, Text, TouchableOpacity, View} from "react-native";
 import tw from "twrnc";
 import {Rating} from "react-native-ratings";
 import {AntDesign} from "react-native-vector-icons";
+import {useContext} from "react";
+import {productsContext} from "../context/ProductProvider";
 
 const {width, height} =Dimensions.get('window')
 
 export const CardDetaill=({item})=>{
-
+    const {addQty,removeQty} = useContext(productsContext);
     return(
         <>
             <View style={tw`justify-center items-center`}>
@@ -43,11 +45,17 @@ export const CardDetaill=({item})=>{
                         </View>
                     </View>
                     <View style={tw`flex-row  bg-amber-400 mr-3 rounded-2xl`}>
-                        <TouchableOpacity style={tw`items-center justify-center p-2`}>
+                        <TouchableOpacity
+                            style={tw`items-center justify-center p-2`}
+                            onPress={()=>removeQty(item)}
+                        >
                             <AntDesign name={'minus'} style={tw`text-2xl text-black font-bold`}    />
                         </TouchableOpacity>
-                        <Text style={tw`text-2xl text-black font-bold items-center justify-center m-1`}>1</Text>
-                        <TouchableOpacity style={tw`items-center justify-center p-2`}>
+                        <Text style={tw`text-2xl text-black font-bold items-center justify-center m-1`}> {item.qty} </Text>
+                        <TouchableOpacity
+                            style={tw`items-center justify-center p-2`}
+                            onPress={()=>addQty(item)}
+                        >
                             <AntDesign name={'plus'} style={tw`text-2xl text-black font-bold`}    />
                         </TouchableOpacity>
                     </View>

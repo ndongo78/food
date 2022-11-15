@@ -26,12 +26,11 @@ const {width,height}=Dimensions.get('window')
 
 //console.log(height)
 const Home=()=>{
-    const {products,fetchData,fetchAllData} = useContext(productsContext);
+    const {products,fetchData,fetchAllData,searchProduct,searchList,notFound} = useContext(productsContext);
     const navigation = useNavigation();
     const route=useRoute()
     const scrollY = useRef(new Animated.Value(0)).current;
     const {cart} = useContext(productsContext);
-
 
 
   useEffect(()=>{
@@ -48,82 +47,114 @@ return (
         <View style={tw`flex-row mt-2 mb-3`}>
             <Text style={tw`text-2xl ml-1 mb-2 mt-2`}> dîner aujourd'hui</Text>
             <Image source={require('../../assets/images/petit-dejeuner.png')}
-                   style={[tw`w-10 h-10 ml-2`,{resizeMode: 'contain'}]}
+            style={[tw`w-10 h-10 ml-2`,{resizeMode: 'contain'}]}
             />
         </View>
     </View>
     <View 
     style={
    tw`flex-row self-center items-center
-   bg-white rounded p-1`
+   bg-white rounded-xl  m-4`
     }
     >
      <AntDesign
       name='search1'
       size={25}
-      style={tw`m-1`}
+      style={tw`m-2`}
      />
       <TextInput
        placeholder="rechercher un produit"
        style={
-         tw`bg-white w-70 h-10`
+         tw`bg-white w-70 h-12 p-1`
        }
+       onChangeText={(text)=>searchProduct(text)}
       />
-      <MaterialCommunityIcons
-      name="order-bool-descending"
-      size={25}
-      />
-    </View>
-     <View>
-         <FlatList
-         data={menuItems}
-         showsHorizontalScrollIndicator={false}
-         horizontal={true}
-         renderItem={({item})=>(
-             <TouchableOpacity
-             style={tw`m-4 w-20 h-15 bg-white justify-center items-center rounded[25] shadow-2xl`}
-              activeOpacity={.8}
-             onPress={()=>fetchData(item.category)}
-             >
-                 <Image source={item.img} style={[tw`w-10 h-10`,{resizeMode: 'contain'}]}   />
-             </TouchableOpacity>
-         )}
+     <TouchableOpacity
+         activeOpacity={.5}
+     >
+         <MaterialCommunityIcons
+             name="order-bool-descending"
+             size={30}
+             style={tw`bg-amber-500 p-2 rounded`}
          />
-     <Text style={tw`text-2xl m-2 p-2`}>Recommander pour vous !</Text>
-     </View>
+     </TouchableOpacity>
+    </View>
       {
-          products.length !== 0 ?
-              (
-                  <Animated.FlatList
-                      data={products}
-                      keyExtractor={item => item.id.toString()}
-                      renderItem={({item})=>(
-                          <Pressable
-                              onPress={()=>navigation.navigate("Detail",{item: item})}
-                              //style={tw`flex-row  flex-wrap ml-3 mr-3`}
-                          >
-                              <CardItem item={item} scrollY={scrollY} />
-                          </Pressable>
-                      )}
-                      style={tw` h-${height/7.8}`}
-                      numColumns={2}
-                      onScroll={Animated.event(
-                          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-                          { useNativeDriver: true }
-                      )}
-                  />
-              )
-              :(
-                  <View style={tw`justify-center items-center mt-10`}>
-                  <ActivityIndicator
-                      size={100}
-                      animating={true}
-                      color={"#000000"}
+          searchList.length > 0 ? (
+              <Animated.FlatList
+                  data={searchList}
+                  keyExtractor={item => item.id.toString()}
+                  renderItem={({item})=>(
+                      <Pressable
+                          onPress={()=>navigation.navigate("Detail",{item: item})}
+                          //style={tw`flex-row  flex-wrap ml-3 mr-3`}
+                      >
+                          <CardItem item={item} scrollY={scrollY} />
+                      </Pressable>
+                  )}
+                  style={tw` h-${height/7.8}`}
+                  numColumns={2}
+                  onScroll={Animated.event(
+                      [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                      { useNativeDriver: true }
+                  )}
+              />
+          ):(
+              <>
+                  <Text style={tw`text-red-600 text-xl italic ml-2`}> {notFound && "Désole pas d'article avec l'orthographe"} </Text>
+                  <View>
+                      <FlatList
+                          data={menuItems}
+                          showsHorizontalScrollIndicator={false}
+                          horizontal={true}
+                          renderItem={({item})=>(
+                              <TouchableOpacity
+                                  style={tw`m-4 w-20 h-15 bg-white justify-center items-center rounded[25] shadow-2xl`}
+                                  activeOpacity={.8}
+                                  onPress={()=>fetchData(item.category)}
+                              >
+                                  <Image source={item.img} style={[tw`w-10 h-10`,{resizeMode: 'contain'}]}   />
+                              </TouchableOpacity>
+                          )}
                       />
+                      <Text style={tw`text-2xl m-2 p-2`}>Recommander pour vous !</Text>
                   </View>
-              )
+                  {
+                      products.length !== 0 ?
+                          (
+                              <Animated.FlatList
+                                  data={products}
+                                  keyExtractor={item => item.id.toString()}
+                                  renderItem={({item})=>(
+                                      <Pressable
+                                          onPress={()=>navigation.navigate("Detail",{item: item})}
+                                          //style={tw`flex-row  flex-wrap ml-3 mr-3`}
+                                      >
+                                          <CardItem item={item} scrollY={scrollY} />
+                                      </Pressable>
+                                  )}
+                                  style={tw` h-${height/7.8}`}
+                                  numColumns={2}
+                                  onScroll={Animated.event(
+                                      [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                                      { useNativeDriver: true }
+                                  )}
+                              />
+                          )
+                          :(
+                              <View style={tw`justify-center items-center mt-10`}>
+                                  <ActivityIndicator
+                                      size={100}
+                                      animating={true}
+                                      color={"#000000"}
+                                  />
+                              </View>
+                          )
+                  }
+              </>
+          )
       }
-      
+
     </View>
      <View style={tw`flex-row  absolute w-100%
      bottom-0 bg-white h-16 justify-between items-center rounded-t-2xl`}>
