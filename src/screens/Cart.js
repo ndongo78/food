@@ -27,7 +27,8 @@ const Cart =()=>{
          addQty,
          removeQty,
         total,
-        totalArticle
+        totalArticle,
+        deleteFromCart
     } = useContext(productsContext);
     const navigation=useNavigation()
     const animation = useRef(null);
@@ -75,7 +76,7 @@ const Cart =()=>{
             >
             <TouchableOpacity
                 style={[styles.backRightBtn, styles.backRightBtnRight]}
-                //onPress={() => deleteRow(rowMap, data.item.key)}
+                onPress={() => deleteFromCart(data.item.key)}
             >
                 <MaterialCommunityIcons
                  name={'delete'}
@@ -165,28 +166,33 @@ const Cart =()=>{
 
        </View>
 
-        <View style={tw`  absolute w-100%
+        {
+            cart.length > 0 &&
+            (
+                <View style={tw`  absolute w-100%
        bottom-0 bg-white h-40 rounded-t-5 p-2 shadow-xl`}
-        >
-            <View style={tw`flex-row justify-between`}>
-                <Text style={tw`text-xl font-bold`}>Total à payer</Text>
-                <Text style={tw`text-xl font-bold mr-2`}>{total()}€</Text>
-            </View>
-            <View style={tw`flex-row justify-between`}>
-                <Text style={tw`text-xl font-bold`}>Articles</Text>
-                <Text style={tw`text-xl font-bold  mr-2`}> {totalArticle()} </Text>
-            </View>
-            <View style={tw`flex-row justify-between`}>
-                <Text style={tw`text-xl font-bold`}>Livraison</Text>
-                <Text style={tw`text-xl font-bold  mr-2`}>Gratuit</Text>
-            </View>
-             <TouchableOpacity
-                 style={tw`bg-amber-400 self-center m-2 rounded-5`}
-                  activeOpacity={.6}
-                 >
-                 <Text style={tw`p-3.3 text-xl  mr-2`}>Payer la commande</Text>
-             </TouchableOpacity>
-        </View>
+                >
+                    <View style={tw`flex-row justify-between`}>
+                        <Text style={tw`text-xl font-bold`}>Total à payer</Text>
+                        <Text style={tw`text-xl font-bold mr-2`}>{total()}€</Text>
+                    </View>
+                    <View style={tw`flex-row justify-between`}>
+                        <Text style={tw`text-xl font-bold`}>Articles</Text>
+                        <Text style={tw`text-xl font-bold  mr-2`}> {totalArticle()} </Text>
+                    </View>
+                    <View style={tw`flex-row justify-between`}>
+                        <Text style={tw`text-xl font-bold`}>Livraison</Text>
+                        <Text style={tw`text-xl font-bold  mr-2`}>Gratuit</Text>
+                    </View>
+                    <TouchableOpacity
+                        style={tw`bg-amber-400 self-center m-2 rounded-5`}
+                        activeOpacity={.6}
+                    >
+                        <Text style={tw`p-3.3 text-xl  mr-2`}>Payer la commande</Text>
+                    </TouchableOpacity>
+                </View>
+            )
+        }
     </View>
     )
 }

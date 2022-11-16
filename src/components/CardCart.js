@@ -31,7 +31,6 @@ export const  CardCart=({item})=>{
                         <TouchableOpacity
                             style={tw`items-center justify-center p-1 ${item.qty === 1 && 'text-white opacity-25'}`}
                         onPress={()=>removeQty(item)}
-                         disabled={item.qty === 1 && true}
                         >
                             <AntDesign name={'minus'} style={tw`text-xl text-black font-bold`}    />
                         </TouchableOpacity>

@@ -83,11 +83,22 @@ const ProductProvider = ({children}) => {
 
     //search item
     const searchProduct=(text)=>{
-        const result=products.filter(item=> item.name.includes(text))
-        if(result.length === 0){
-            setNotFound(true)
-        }
-        setSearchList(result)
+               if (text !== ""){
+                const result=products.filter(item=> item.name.toLowerCase().includes(text))
+                setSearchList(result)
+                   if(result.length === 0){
+                       setNotFound(true)
+                   }
+        }else {
+                   setSearchList([])
+               }
+
+    }
+
+    const deleteFromCart=(key)=>{
+
+        const result=cart.filter(item=> item.key !== key)
+        setCart(result)
     }
 
 
@@ -104,7 +115,8 @@ const ProductProvider = ({children}) => {
             totalArticle,
             searchProduct,
             searchList,
-            notFound
+            notFound,
+            deleteFromCart
         }}>
             {children}
         </productsContext.Provider>
