@@ -24,7 +24,7 @@ export const CardItem=({item , scrollY}) =>{
     }, [fadeAnim])
 
     return (
-        <Animated.View style={[tw`bg-white w-${width/9.5} m-3  relative mt-15 shadow-2xl   h-50 rounded-xl justify-between`,
+        <Animated.View style={[tw`bg-white w-${width/10.6} m-3  relative mt-15 shadow-2xl   h-50 rounded-xl justify-between`,
             {
                 opacity:fadeAnim,
                 transform: [{

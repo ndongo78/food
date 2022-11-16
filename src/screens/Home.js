@@ -9,7 +9,8 @@ import {
     Pressable,
     ActivityIndicator,
     Animated,
-    TextInput
+    TextInput,
+    ScrollView
 } from 'react-native'
 import tw from 'twrnc';
 import {MaterialIcons , Ionicons ,MaterialCommunityIcons , AntDesign} from 'react-native-vector-icons'
@@ -41,7 +42,7 @@ const Home=()=>{
 
 return (
  <View style={styles.container}>
-  <View>
+  <ScrollView>
     <View style={tw`m-3`}>
         <Text style={tw`text-8 mt-2`}> Que voulez-vous </Text>
         <View style={tw`flex-row mt-2 mb-3`}>
@@ -81,24 +82,19 @@ return (
     </View>
       {
           searchList.length > 0 ? (
-              <Animated.FlatList
-                  data={searchList}
-                  keyExtractor={item => item.id.toString()}
-                  renderItem={({item})=>(
-                      <Pressable
+            <View style={tw`flex-row flex-wrap`}>
+            {
+               searchList.map(item =>(
+                   <Pressable
                           onPress={()=>navigation.navigate("Detail",{item: item})}
-                          //style={tw`flex-row  flex-wrap ml-3 mr-3`}
+                          style={tw`flex-row  flex-wrap ml-3 mr-3`}
+                          key={item._id}
                       >
                           <CardItem item={item} scrollY={scrollY} />
                       </Pressable>
-                  )}
-                  style={tw` h-${height/7.8}`}
-                  numColumns={2}
-                  onScroll={Animated.event(
-                      [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-                      { useNativeDriver: true }
-                  )}
-              />
+               ))
+            }
+           </View>
           ):(
               <>
                   <Text style={tw`text-red-600 text-xl italic ml-2`}> {notFound && "Désole pas d'article avec l'orthographe"} </Text>
@@ -122,24 +118,37 @@ return (
                   {
                       products.length !== 0 ?
                           (
-                              <Animated.FlatList
-                                  data={products}
-                                  keyExtractor={item => item.id.toString()}
-                                  renderItem={({item})=>(
-                                      <Pressable
-                                          onPress={()=>navigation.navigate("Detail",{item: item})}
-                                          //style={tw`flex-row  flex-wrap ml-3 mr-3`}
-                                      >
-                                          <CardItem item={item} scrollY={scrollY} />
-                                      </Pressable>
-                                  )}
-                                  style={tw` h-${height/7.8}`}
-                                  numColumns={2}
-                                  onScroll={Animated.event(
-                                      [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-                                      { useNativeDriver: true }
-                                  )}
-                              />
+                            //   <Animated.FlatList
+                            //       data={products}
+                            //       keyExtractor={item => item.id.toString()}
+                            //       renderItem={({item})=>(
+                            //           <Pressable
+                            //               onPress={()=>navigation.navigate("Detail",{item: item})}
+                            //               //style={tw`flex-row  flex-wrap ml-3 mr-3`}
+                            //           >
+                            //               <CardItem item={item} scrollY={scrollY} />
+                            //           </Pressable>
+                            //       )}
+                            //       style={tw` h-${height/7.8}`}
+                            //       numColumns={2}
+                            //       onScroll={Animated.event(
+                            //           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                            //           { useNativeDriver: true }
+                            //       )}
+                            //   />
+                            <View style={tw`flex-row flex-wrap`}>
+                             {
+                                products.map(item =>(
+                                    <Pressable
+                                           onPress={()=>navigation.navigate("Detail",{item: item})}
+                                           style={tw`flex-row  flex-wrap ml-3 mr-3`}
+                                           key={item._id}
+                                       >
+                                           <CardItem item={item} scrollY={scrollY} />
+                                       </Pressable>
+                                ))
+                             }
+                            </View>
                           )
                           :(
                               <View style={tw`justify-center items-center mt-10`}>
@@ -155,7 +164,7 @@ return (
           )
       }
 
-    </View>
+    </ScrollView>
      <View style={tw`flex-row  absolute w-100%
      bottom-0 bg-white h-16 justify-between items-center rounded-t-2xl`}>
       <TouchableOpacity style={tw`ml-4 items-center`}>

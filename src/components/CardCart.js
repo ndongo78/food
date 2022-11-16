@@ -29,7 +29,7 @@ export const  CardCart=({item})=>{
                 <View style={tw`flex-row justify-between items-center`}>
                     <View style={tw`flex-row  bg-amber-400 mr-3 rounded-2xl`}>
                         <TouchableOpacity
-                            style={tw`items-center justify-center p-1 ${item.qty === 1 && 'text-white opacity-25'}`}
+                            style={tw`items-center justify-center p-1`}
                         onPress={()=>removeQty(item)}
                         >
                             <AntDesign name={'minus'} style={tw`text-xl text-black font-bold`}    />

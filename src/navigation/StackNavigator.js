@@ -6,6 +6,7 @@ import Detail from "../screens/Detail"
 import Cart from "../screens/Cart"
 import tw from 'twrnc';
 import {Avatar} from 'react-native-paper';
+import OnboardingScreen from '../components/Onboarding';
 
 
 const Stack = createNativeStackNavigator();
@@ -29,6 +30,7 @@ function MyStack() {
         headerShadowVisible: false
       }}
     >
+    <Stack.Screen  name='Onboarding' component={OnboardingScreen} options={{headerShown:false}}    />
     <Stack.Screen name="Home" component={Home} options={{
     headerLeft:()=>(
      <View>

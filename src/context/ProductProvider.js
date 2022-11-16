@@ -91,6 +91,7 @@ const ProductProvider = ({children}) => {
                    }
         }else {
                    setSearchList([])
+                   setNotFound(false)
                }
 
     }
