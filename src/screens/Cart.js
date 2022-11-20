@@ -156,6 +156,7 @@ const Cart = () => {
           <TouchableOpacity
             style={tw`bg-amber-400 self-center m-2 rounded-5`}
             activeOpacity={0.6}
+            onPress={()=>navigation.navigate("Payement")}
           >
             <Text style={tw`p-3.3 text-xl  mr-2`}>Payer la commande</Text>
           </TouchableOpacity>

@@ -12,11 +12,12 @@ import {
 } from "react-native"
 import {Ionicons ,AntDesign,MaterialCommunityIcons} from "react-native-vector-icons"
 import tw from 'twrnc';
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {productsContext} from "../context/ProductProvider";
 import {CardDetaill} from "../components/CardDetaill";
+import LottieView from "lottie-react-native";
 
 
 const {width,height}=Dimensions.get('window')
@@ -25,8 +26,16 @@ const Detail=()=>{
     const {cart} = useContext(productsContext);
     const {addToCart} = useContext(productsContext);
     const navigation=useNavigation()
-const router=useRoute()
+    const [isClicked, setIsClicked] = useState(false);
+    const animation = useRef(null);
+    const router=useRoute()
     const {item}=router.params
+
+    useEffect(() => {
+        if (animation.current && isClicked) {
+            animation.current.play(15, 150);
+        }
+    }, [animation,isClicked]);
 
     return(
     <SafeAreaView style={styles.container}>
@@ -48,12 +57,31 @@ const router=useRoute()
      </View>
         <ScrollView>
             <CardDetaill item={item} />
-            <TouchableOpacity
-                style={tw`-mt-4 bg-amber-500   w-55 m-3  items-center justify-center self-center rounded-6`}
-                onPress={()=>addToCart(item)}
-            >
-                <Text style={tw`text-white p-3 text-2xl `}>Je commande</Text>
-            </TouchableOpacity>
+
+            {
+                isClicked ?
+                    (
+                        <LottieView
+                            loop={false}
+                            ref={animation}
+                            source={require('../../assets/lf30_editor_emvnd3ts.json')}
+                            style={tw`w-60 m-2 h-20  items-center justify-center self-center rounded-6`}
+                        />
+                    )
+                    :
+                    (
+                        <TouchableOpacity
+                            style={tw` bg-amber-500   w-55 m-2  items-center justify-center self-center rounded-6`}
+                            onPress={()=>{
+                                addToCart(item)
+                                setIsClicked(true)
+                            }}
+                        >
+                            <Text style={tw`text-white p-3 text-2xl `}>Je commande</Text>
+                        </TouchableOpacity>
+                    )
+            }
+
         </ScrollView>
     </SafeAreaView>
     )

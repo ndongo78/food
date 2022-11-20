@@ -6,6 +6,7 @@ import Cart from "../screens/Cart"
 import tw from 'twrnc';
 import { Avatar } from 'react-native-paper';
 import OnboardingScreen from '../components/Onboarding';
+import Payement from "../screens/Payement";
 
 
 const Stack = createNativeStackNavigator();
@@ -62,6 +63,13 @@ function MyStack() {
           headerShown: false
         }}
       />
+        <Stack.Screen
+            name="Payement"
+            component={Payement}
+            options={{
+                headerShown: false
+            }}
+        />
     </Stack.Navigator>
   );
 }

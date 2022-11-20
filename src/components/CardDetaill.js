@@ -33,7 +33,7 @@ export const CardDetaill=({item})=>{
                         startingValue={Number(item.note)}
                     />
                 </View>
-                <View style={tw`flex-row justify-between mt-2`}>
+                <View style={tw`flex-row justify-between mt-4`}>
                     <View style={tw`flex-row`}>
                         <View style={tw`flex-row items-end justify-center`}>
                             <Text style={tw`text-4xl`}>🔥</Text>
@@ -61,7 +61,7 @@ export const CardDetaill=({item})=>{
                     </View>
                 </View>
                 <View>
-                    <Text style={tw`text-2xl m-3`}>Description </Text>
+                    <Text style={tw`text-2xl m-3 mt-4`}>Description </Text>
                     <View>
                         <Text style={tw`text-sm ml-1`}>
                             Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour
@@ -69,7 +69,7 @@ export const CardDetaill=({item})=>{
                             le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée
                         </Text>
                     </View>
-                    <Text style={tw`text-2xl m-3 font-bold`}>{item.category !== "drink01" && "Ingrédients"}</Text>
+                    <Text style={tw`text-2xl m-2 font-bold`}>{item.category !== "drink01" && "Ingrédients"}</Text>
                     <View style={tw`flex-row justify-around items-end mb-2`}>
 
                         {item.category !== "drink01" &&

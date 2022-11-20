@@ -15,7 +15,16 @@ const ProductProvider = ({ children }) => {
             //{headers:{ Authorization: `Bearer ${token}`}}
         )
             .then(response => {
-                setProducts(response.data)
+                if (response.data) {
+                    const datas = response.data.map((item, index) => (
+                        {
+                            key: index,
+                            ...item,
+                            qty: 1
+                        }
+                    ))
+                    setProducts(datas)
+                }
             })
             .catch(error => {
                 console.log("errors", error.response.data)
